@@ -1,5 +1,5 @@
 {
-  "name" : "pouyasoft_ir/date-bundle",
+  "name" : "pouyasoft_ir/s-date-bundle",
   "description" : "A bundle for persian date in Symfony2",
   "type" : "symfony-bundle",
   "authors" : [
