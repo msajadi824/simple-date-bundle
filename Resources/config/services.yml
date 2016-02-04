@@ -2,3 +2,18 @@ services:
 #    pouya_soft_s_date.example:
 #        class: PouyaSoft\SDateBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+    pouya_soft.j_sdate_service:
+        class: PouyaSoft\SDateBundle\Service\jDateService
+
+    pouya_soft.sdate_extension:
+        class: PouyaSoft\SDateBundle\Twig\PouyaSoftDateExtension
+        arguments: [ @pouya_soft.j_sdate_service ]
+        tags:
+            - { name: twig.extension }
+
+    pouya_soft.form.type.j_sdate:
+        class: PouyaSoft\SDateBundle\Form\Type\PouyaSoftSDateType
+        tags:
+            - { name: form.type, alias: jSDate }
+        arguments: [@pouya_soft.j_sdate_service]
