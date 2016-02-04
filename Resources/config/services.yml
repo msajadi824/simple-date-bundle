@@ -1,0 +1,4 @@
+services:
+#    pouya_soft_s_date.example:
+#        class: PouyaSoft\SDateBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

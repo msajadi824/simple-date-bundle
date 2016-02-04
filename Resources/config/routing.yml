@@ -1,0 +1,3 @@
+pouya_soft_s_date_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: PouyaSoftSDateBundle:Default:index }
