@@ -1,0 +1,4 @@
+{% block jSDate_widget -%}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' jSDate')|trim}) -%}
+    {{- block('form_widget_simple') -}}
+{%- endblock jSDate_widget %}
