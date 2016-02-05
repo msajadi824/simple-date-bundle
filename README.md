@@ -4,15 +4,13 @@ pouyasoft_ir/simple-date-bundle
 
 Install
 --------------
-* **Add to Composer:**
+- **Install via Composer:**
 
-```json
-"require": {
-    "pouyasoft_ir/simple-date-bundle": "*",
-}
+```
+$ php composer require pouyasoft_ir/simple-date-bundle
 ```
 
-* **Add to AppKernel:**
+- **Add to AppKernel:**
 
 ```php
 class AppKernel extends Kernel
@@ -25,10 +23,10 @@ class AppKernel extends Kernel
 }
 ```
 
-* **install assets:** 
+- **install assets:** 
 
 ```
-php app/console assets:install
+$ php app/console assets:install
 ```
 
 Service
@@ -36,10 +34,10 @@ Service
 **Service Name:** pouya_soft.j_sdate_service
 
 **Functions:**
-* **MiladiToShamsi:** Convert Miladi (DateTime) To Shamsi (String). (Parameter: separator - default: /)
-* **ShamsiToMiladi:** Convert Shamsi (String) To Miladi (DateTime). (Parameter: separator - default: /)
-* **getWeekDay:**     Return WeekDay.
-* **isLeapYear:**     Return true or false.
+- **MiladiToShamsi:** Convert Miladi (DateTime) To Shamsi (String). (Parameter: separator - default: /)
+- **ShamsiToMiladi:** Convert Shamsi (String) To Miladi (DateTime). (Parameter: separator - default: /)
+- **getWeekDay:**     Return WeekDay.
+- **isLeapYear:**     Return true or false.
 
 **Example:**
 ```php
@@ -55,7 +53,8 @@ $miladiDate = $this->get('pouya_soft.j_sdate_service')->ShamsiToMiladi('1394-11-
 Twig
 --------------
 **Functions:**
-* **jSDate:** Convert Miladi (DateTime) To Shamsi (String).  (Parameter: separator - default: /)
+- **jSDate:** 
+Convert Miladi (DateTime) To Shamsi (String).  (Parameter: separator - default: /)
 
 **Example:**
 ```twig
@@ -77,8 +76,8 @@ $builder
 Date Picker
 --------------
 **Requirements:**
-* Bootstrap
-* Jquery
+- Bootstrap
+- Jquery
 
 **Add this to head tag in 'base.html.twig' file:**
 
@@ -109,4 +108,4 @@ twig:
 ```
 
 **References:**
-* [Bootstrap Jalali Datepicker](http://mousavian.github.io/bootstrap-jalali-datepicker/)
+- [Bootstrap Jalali Datepicker](http://mousavian.github.io/bootstrap-jalali-datepicker/)
