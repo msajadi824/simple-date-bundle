@@ -79,19 +79,19 @@ class jDateService
 
         switch($miladi->format('w')){
             case 0:
-                return '?˜ÔäÈå';
+                return 'ÛŒÚ©Ø´Ù†Ø¨Ù‡';
             case 1:
-                return 'ÏæÔäÈå';
+                return 'Ø¯ÙˆØ´Ù†Ø¨Ù‡';
             case 2:
-                return 'Óå ÔäÈå';
+                return 'Ø³Ù‡ Ø´Ù†Ø¨Ù‡';
             case 3:
-                return 'åÇÑ ÔäÈå';
+                return 'Ú†Ù‡Ø§Ø± Ø´Ù†Ø¨Ù‡';
             case 4:
-                return 'äÌ ÔäÈå';
+                return 'Ù¾Ù†Ø¬ Ø´Ù†Ø¨Ù‡';
             case 5:
-                return 'ÌãÚå';
+                return 'Ø¬Ù…Ø¹Ù‡';
             case 6:
-                return 'ÔäÈå';
+                return 'Ø´Ù†Ø¨Ù‡';
         }
 
         return '';
