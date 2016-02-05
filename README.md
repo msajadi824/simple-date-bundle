@@ -8,7 +8,7 @@ Install
 
 ```json
 "require": {
-    "pouyasoft_ir/simple-date-bundle": "@dev",
+    "pouyasoft_ir/simple-date-bundle": "*",
 }
 ```
 
