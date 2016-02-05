@@ -95,7 +95,7 @@ Date Picker
 <script type="text/javascript" src="{{ asset('bundles/pouyasoftsdate/lib/bootstrap-datepicker/bootstrap-datepicker.fa.min.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $(".jSDate").datepicker({isRTL: true, dateFormat: "yy/m/d"});
+        $(".jSDate").datepicker({isRTL: true, dateFormat: "yy/m/d", changeMonth: true, changeYear: true});
     });
 </script>
 ```
