@@ -110,4 +110,3 @@ twig:
 
 **References:**
 * [Bootstrap Jalali Datepicker](http://mousavian.github.io/bootstrap-jalali-datepicker/)
-* [Bootstrap Jalali Datepicker](http://mousavian.github.io/bootstrap-jalali-datepicker/)
