@@ -6,6 +6,7 @@ use PouyaSoft\SDateBundle\Service\jDateService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PouyaSoftSDateType extends AbstractType
 {
@@ -43,6 +44,21 @@ class PouyaSoftSDateType extends AbstractType
         ));
 
         $resolver->setAllowedTypes('separator', ['string', 'null']);
+    }
+
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'invalid_message' => 'تاریخ وارد شده اشتباه است',
+            'separator' => '/'
+        ));
+
+        $resolver->setAllowedTypes(array(
+            'separator' => array('string', 'null')
+        ));
     }
 
     /**
