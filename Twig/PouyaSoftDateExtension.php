@@ -25,11 +25,12 @@ class PouyaSoftDateExtension extends \Twig_Extension
     /**
      * @param \DateTime $date
      * @param string $separator
+     * @param bool $hasTime
      * @return string
      */
-    public function jSDateFilter($date, $separator = null)
+    public function jSDateFilter($date, $separator = null, $hasTime = false)
     {
-        return $this->jDateService->MiladiToShamsi($date, $separator);
+        return $this->jDateService->MiladiToShamsi($date, $separator, $hasTime);
     }
 
     /**
