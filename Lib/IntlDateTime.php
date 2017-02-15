@@ -243,7 +243,7 @@ class IntlDateTime extends \DateTime {
 	 * @return IntlDateTime The modified DateTime.
 	 */
 	public function setDate($year, $month, $day) {
-		$this->set("$year/$month/$day ".$this->format('HH:mm:ss'), null, 'yyyy/MM/dd HH:mm:ss');
+		$this->set("$year/$month/$day ".$this->intlFormat('HH:mm:ss'), null, 'yyyy/MM/dd HH:mm:ss');
 		return $this;
 	}
 
@@ -270,7 +270,7 @@ class IntlDateTime extends \DateTime {
 			parent::modify($matches[1]);
 		}
 
-		list($y, $m, $d) = explode('-', $this->format('y-M-d'));
+		list($y, $m, $d) = explode('-', $this->intlFormat('y-M-d'));
 		$change = strtolower($matches[2]);
 		$unit = strtolower($matches[3]);
 
@@ -327,7 +327,7 @@ class IntlDateTime extends \DateTime {
 	 * @param mixed $timezone DateTimeZone object or timezone identifier as full name (e.g. Asia/Tehran) or abbreviation (e.g. IRDT).
 	 * @return string Formatted date on success or FALSE on failure.
 	 */
-	public function format($pattern, $timezone = null) {
+	public function intlFormat($pattern, $timezone = null) {
         $tempTimezone = null;
 
         if (isset($timezone)) {
@@ -356,7 +356,7 @@ class IntlDateTime extends \DateTime {
 	 * @param mixed $timezone DateTimeZone object or timezone identifier as full name (e.g. Asia/Tehran) or abbreviation (e.g. IRDT).
 	 * @return string Formatted date on success or FALSE on failure.
 	 */
-	public function classicFormat($format, $timezone = null) {
+	public function format($format, $timezone = null) {
         $tempTimezone = null;
 
         if (isset($timezone)) {

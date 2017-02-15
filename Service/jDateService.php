@@ -13,7 +13,7 @@ class jDateService
      */
     public function persianToGeorgian($persian, $format)
     {
-        return (new \DateTime())->setTimestamp($this->intlDateTimeInstance($persian, null, 'persian', 'fa', $format)->getTimestamp());
+        return $this->intlDateTimeInstance($persian, null, 'persian', 'fa', $format);
     }
 
     /**
@@ -23,7 +23,7 @@ class jDateService
      */
     public function georgianToPersian(\DateTime $georgian, $format)
     {
-        return $this->intlDateTimeInstance($georgian, null, 'persian', 'fa', null)->format($format);
+        return $this->intlDateTimeInstance($georgian, null, 'persian', 'fa', null)->intlFormat($format);
     }
 
     /**
