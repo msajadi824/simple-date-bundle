@@ -15,7 +15,8 @@
     "MIT"
   ],
   "require" : {
-    "php": ">=5.2"
+    "php": ">=5.2",
+    "sallar/jdatetime": "dev-master"
   },
   "autoload" : {
     "psr-0" : {
