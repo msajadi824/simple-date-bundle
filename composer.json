@@ -1,5 +1,6 @@
 {
   "name" : "pouyasoft_ir/simple-date-bundle",
+  "license": "MIT",
   "description" : "A bundle for persian date in Symfony2",
   "type" : "symfony-bundle",
   "authors" : [
@@ -10,9 +11,6 @@
   ],
   "keywords" : [
     "symfony persian jalali shamsi date bundle"
-  ],
-  "license" : [
-    "MIT"
   ],
   "require" : {
     "php": ">=5.2"
