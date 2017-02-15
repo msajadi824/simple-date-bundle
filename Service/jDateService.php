@@ -9,21 +9,25 @@ class jDateService
     /**
      * @param string $persian
      * @param string $format
+     * @param string $locale (e.g. fa, fa_IR, en, en_US, en_UK, ...)
+     * @param string $calendar (e.g. gregorian, persian, islamic, ...)
      * @return \DateTime
      */
-    public function persianToGeorgian($persian, $format = 'yyyy/MM/dd')
+    public function persianToGeorgian($persian, $format = 'yyyy/MM/dd', $locale = 'en', $calendar = 'persian')
     {
-        return $this->intlDateTimeInstance($persian, null, 'persian', 'fa', $format);
+        return $this->intlDateTimeInstance($persian, null, $calendar, $locale, $format);
     }
 
     /**
      * @param \DateTime $georgian
      * @param string $format
+     * @param string $locale (e.g. fa, fa_IR, en, en_US, en_UK, ...)
+     * @param string $calendar (e.g. gregorian, persian, islamic, ...)
      * @return string
      */
-    public function georgianToPersian(\DateTime $georgian, $format = 'yyyy/MM/dd')
+    public function georgianToPersian(\DateTime $georgian, $format = 'yyyy/MM/dd', $locale = 'en', $calendar = 'persian')
     {
-        return $this->intlDateTimeInstance($georgian, null, 'persian', 'fa', null)->intlFormat($format);
+        return $this->intlDateTimeInstance($georgian, null, $calendar, $locale, null)->intlFormat($format);
     }
 
     /**
@@ -32,7 +36,7 @@ class jDateService
      * @param mixed $time Unix timestamp or strtotime() compatible string or another DateTime object
      * @param mixed $timezone DateTimeZone object or timezone identifier as full name (e.g. Asia/Tehran) or abbreviation (e.g. IRDT).
      * @param string $calendar any calendar supported by ICU (e.g. gregorian, persian, islamic, ...)
-     * @param string $locale any locale supported by ICU
+     * @param string $locale any locale supported by ICU (e.g. fa, fa_IR, en, en_US, en_UK, ...)
      * @param string $pattern the date pattern in which $time is formatted.
      * @return IntlDateTime
      */
