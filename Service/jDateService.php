@@ -11,7 +11,7 @@ class jDateService
      * @param string $format
      * @return \DateTime
      */
-    public function persianToGeorgian($persian, $format)
+    public function persianToGeorgian($persian, $format, $format = 'yyyy/MM/dd')
     {
         return $this->intlDateTimeInstance($persian, null, 'persian', 'fa', $format);
     }
@@ -21,7 +21,7 @@ class jDateService
      * @param string $format
      * @return string
      */
-    public function georgianToPersian(\DateTime $georgian, $format)
+    public function georgianToPersian(\DateTime $georgian, $format, $format = 'yyyy/MM/dd')
     {
         return $this->intlDateTimeInstance($georgian, null, 'persian', 'fa', null)->intlFormat($format);
     }
