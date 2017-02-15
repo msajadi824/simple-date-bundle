@@ -2,98 +2,42 @@
 
 namespace PouyaSoft\SDateBundle\Service;
 
-use PouyaSoft\SDateBundle\Lib\JalaliDateConverter;
+use PouyaSoft\SDateBundle\Lib\IntlDateTime;
 
 class jDateService
 {
     /**
-     * @param string $shamsi
-     * @param string $separator
-     * @return \DateTime|null
-     * @throws \Exception
+     * @param string $persian
+     * @param string $format
+     * @return \DateTime
      */
-    public function ShamsiToMiladi($shamsi = '', $separator = '/')
+    public function persianToGeorgian($persian, $format)
     {
-        if ($shamsi == null || $shamsi == '')
-            return null;
-
-        try {
-            $shamsiarray = explode($separator, $shamsi);
-
-            if(strlen($shamsiarray[0]) != 4 || strlen($shamsiarray[1]) < 1 || strlen($shamsiarray[1]) > 2 || strlen($shamsiarray[2]) < 1 || strlen($shamsiarray[2]) > 2) throw new \Exception();
-
-            if ($shamsiarray[1] > 12 || $shamsiarray[2] > 31) throw new \Exception();
-            if ($shamsiarray[1] > 6 && $shamsiarray[2] > 30) throw new \Exception();
-            if ($shamsiarray[1] == 12 && $shamsiarray[2] > 29 && !$this->isLeapYear($shamsiarray[0])) throw new \Exception();
-
-            $miladiarray = JalaliDateConverter::toGregorian($shamsiarray[0], $shamsiarray[1], $shamsiarray[2]);
-
-            return date_create_from_format('Y/m/d', $miladiarray[0] . '/' . $miladiarray[1] . '/' . $miladiarray[2]);
-
-        } catch (\Exception $e) {
-            throw new \Exception('Invalid date.');
-        }
+        return (new \DateTime())->setTimestamp($this->intlDateTimeInstance($persian, null, 'persian', 'fa', $format)->getTimestamp());
     }
 
     /**
-     * @param \DateTime $miladi
-     * @param string $separator
-     * @param bool $hasTime
+     * @param \DateTime $georgian
+     * @param string $format
      * @return string
      */
-    public function MiladiToShamsi(\DateTime $miladi = null, $separator = '/', $hasTime = false)
+    public function georgianToPersian(\DateTime $georgian, $format)
     {
-        if ($miladi == null)
-            return '';
-
-        $separator = $separator ?: '/';
-
-        $miladiarray = date_parse(date_format($miladi, 'Y/m/d H:i'));
-        $shamsiarray = JalaliDateConverter::toJalali($miladiarray['year'], $miladiarray['month'], $miladiarray['day']);
-        return $shamsiarray[0] . $separator . $shamsiarray[1] . $separator . $shamsiarray[2]
-        .( $hasTime ? '  ' . $this->addZeroBefore($miladiarray['hour']) . ':' .$this->addZeroBefore($miladiarray['minute']) : '' );
+        return $this->intlDateTimeInstance($georgian, null, 'persian', 'fa', null)->format($format);
     }
 
     /**
-     * @param integer $number
-     * @return string
+     * Creates a new instance of IntlDateTime
+     *
+     * @param mixed $time Unix timestamp or strtotime() compatible string or another DateTime object
+     * @param mixed $timezone DateTimeZone object or timezone identifier as full name (e.g. Asia/Tehran) or abbreviation (e.g. IRDT).
+     * @param string $calendar any calendar supported by ICU (e.g. gregorian, persian, islamic, ...)
+     * @param string $locale any locale supported by ICU
+     * @param string $pattern the date pattern in which $time is formatted.
+     * @return IntlDateTime
      */
-    private function addZeroBefore($number)
+    public function intlDateTimeInstance($time = null, $timezone = null, $calendar = 'gregorian', $locale = 'en_US', $pattern = null)
     {
-        return $number < 10 ? '0' . $number : $number;
-    }
-
-    public static function isLeapYear($year)
-    {
-        return (((((($year - 474) % 2820) + 474) + 38) * 682) % 2816) < 682;
-    }
-
-    /**
-     * @param \DateTime $miladi
-     * @return string
-     */
-    public static function getWeekDay(\DateTime $miladi = null)
-    {
-        if ($miladi == null)
-            return '';
-
-        switch($miladi->format('w')){
-            case 0:
-                return 'یکشنبه';
-            case 1:
-                return 'دوشنبه';
-            case 2:
-                return 'سه شنبه';
-            case 3:
-                return 'چهار شنبه';
-            case 4:
-                return 'پنج شنبه';
-            case 5:
-                return 'جمعه';
-            case 6:
-                return 'شنبه';
-        }
-
-        return '';
+        return new IntlDateTime($time, $timezone, $calendar, $locale, $pattern);
     }
 }

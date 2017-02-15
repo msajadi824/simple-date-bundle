@@ -1,8 +1,8 @@
 <?php
 namespace PouyaSoft\SDateBundle\Form\Type;
 
-use farhadi\IntlDateTime;
 use PouyaSoft\SDateBundle\Form\DataTransformer\PouyaSoftSDateTransformer;
+use PouyaSoft\SDateBundle\Service\jDateService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -11,14 +11,14 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class PouyaSoftSDateType extends AbstractType
 {
     /**
-     * @var IntlDateTime
+     * @var jDateService
      */
     private $jDateService;
 
     /**
-     * @param IntlDateTime $jDateService
+     * @param jDateService $jDateService
      */
-    public function __construct(IntlDateTime $jDateService)
+    public function __construct(jDateService $jDateService)
     {
         $this->jDateService = $jDateService;
     }
@@ -40,7 +40,7 @@ class PouyaSoftSDateType extends AbstractType
     {
         $resolver->setDefaults(array(
             'invalid_message' => 'تاریخ وارد شده اشتباه است',
-            'format' => 'Y/m/d'
+            'format' => 'yyyy/MM/dd'
         ));
 
         $resolver->setAllowedTypes('format', ['string', 'null']);
@@ -53,7 +53,7 @@ class PouyaSoftSDateType extends AbstractType
     {
         $resolver->setDefaults(array(
             'invalid_message' => 'تاریخ وارد شده اشتباه است',
-            'format' => 'Y/m/d'
+            'format' => 'yyyy/MM/dd'
         ));
 
         $resolver->setAllowedTypes(array(

@@ -19,9 +19,6 @@
   "autoload" : {
     "psr-0" : {
       "PouyaSoft\\SDateBundle" : ""
-    },
-    "psr-4": {
-      "farhadi\\": ""
     }
   },
   "target-dir" : "PouyaSoft/SDateBundle",

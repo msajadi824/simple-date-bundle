@@ -17,29 +17,29 @@ class PouyaSoftDateExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('jSDate', array($this, 'jSDateFilter')),
-            new \Twig_SimpleFilter('jSDayWeek', array($this, 'jSDayWeekFilter'))
+            new \Twig_SimpleFilter('gpDate', array($this, 'georgianToPersian')),
+            new \Twig_SimpleFilter('pgDate', array($this, 'persianToGeorgian'))
         );
     }
 
     /**
-     * @param \DateTime $date
-     * @param string $separator
-     * @param bool $hasTime
+     * @param \DateTime $gDate
+     * @param string $format
      * @return string
      */
-    public function jSDateFilter($date, $separator = null, $hasTime = false)
+    public function georgianToPersian($gDate, $format = 'yyyy/MM/dd')
     {
-        return $this->jDateService->MiladiToShamsi($date, $separator, $hasTime);
+        return $this->jDateService->georgianToPersian($gDate, $format);
     }
 
     /**
-     * @param \DateTime $date
-     * @return string
+     * @param string $pDate
+     * @param string $format
+     * @return \DateTime
      */
-    public function jSDayWeekFilter($date)
+    public function persianToGeorgian($pDate, $format = 'yyyy/MM/dd')
     {
-        return $this->jDateService->getWeekDay($date);
+        return $this->jDateService->persianToGeorgian($pDate, $format);
     }
 
     public function getName()

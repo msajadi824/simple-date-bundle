@@ -11,7 +11,7 @@
  * @license     GNU General Public License 3.0 (http://www.gnu.org/licenses/gpl.html)
  */
 
-namespace farhadi;
+namespace PouyaSoft\SDateBundle\Lib;
 
 class IntlDateTime extends \DateTime {
 
@@ -33,7 +33,6 @@ class IntlDateTime extends \DateTime {
 	 * @param string $calendar any calendar supported by ICU (e.g. gregorian, persian, islamic, ...)
 	 * @param string $locale any locale supported by ICU
 	 * @param string $pattern the date pattern in which $time is formatted.
-	 * @return IntlDateTime
 	 */
 	public function __construct($time = null, $timezone = null, $calendar = 'gregorian', $locale = 'en_US', $pattern = null) {
 		if (!isset($timezone)) $timezone = new \DateTimeZone(date_default_timezone_get());
@@ -49,7 +48,7 @@ class IntlDateTime extends \DateTime {
 	 * Returns an instance of IntlDateFormatter with specified options.
 	 *
 	 * @param array $options
-	 * @return IntlDateFormatter
+	 * @return \IntlDateFormatter
 	 */
 	protected function getFormatter($options = array()) {
 		$locale = empty($options['locale']) ? $this->locale : $options['locale'];
@@ -198,6 +197,8 @@ class IntlDateTime extends \DateTime {
 			}
 
 			if (!$pattern && preg_match('/((?:[+-]?\d+)|next|last|previous)\s*(year|month)s?/i', $time)) {
+                $tempTimezone = null;
+
 				if (isset($timezone)) {
 					$tempTimezone = $this->getTimezone();
 					$this->setTimezone($timezone);
@@ -327,7 +328,9 @@ class IntlDateTime extends \DateTime {
 	 * @return string Formatted date on success or FALSE on failure.
 	 */
 	public function format($pattern, $timezone = null) {
-		if (isset($timezone)) {
+        $tempTimezone = null;
+
+        if (isset($timezone)) {
 			$tempTimezone = $this->getTimezone();
 			$this->setTimezone($timezone);
 		}
@@ -354,7 +357,9 @@ class IntlDateTime extends \DateTime {
 	 * @return string Formatted date on success or FALSE on failure.
 	 */
 	public function classicFormat($format, $timezone = null) {
-		if (isset($timezone)) {
+        $tempTimezone = null;
+
+        if (isset($timezone)) {
 			$tempTimezone = $this->getTimezone();
 			$this->setTimezone($timezone);
 		}
