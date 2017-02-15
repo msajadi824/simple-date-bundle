@@ -1,8 +1,8 @@
 <?php
 namespace PouyaSoft\SDateBundle\Form\Type;
 
+use farhadi\IntlDateTime;
 use PouyaSoft\SDateBundle\Form\DataTransformer\PouyaSoftSDateTransformer;
-use PouyaSoft\SDateBundle\Service\jDateService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -11,14 +11,14 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class PouyaSoftSDateType extends AbstractType
 {
     /**
-     * @var jDateService
+     * @var IntlDateTime
      */
     private $jDateService;
 
     /**
-     * @param jDateService $jDateService
+     * @param IntlDateTime $jDateService
      */
-    public function __construct(jDateService $jDateService)
+    public function __construct(IntlDateTime $jDateService)
     {
         $this->jDateService = $jDateService;
     }
@@ -29,7 +29,7 @@ class PouyaSoftSDateType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $transformer = new PouyaSoftSDateTransformer($this->jDateService, $options['separator']);
+        $transformer = new PouyaSoftSDateTransformer($this->jDateService, $options['format']);
         $builder->addModelTransformer($transformer);
     }
 
@@ -40,10 +40,10 @@ class PouyaSoftSDateType extends AbstractType
     {
         $resolver->setDefaults(array(
             'invalid_message' => 'تاریخ وارد شده اشتباه است',
-            'separator' => '/'
+            'format' => 'Y/m/d'
         ));
 
-        $resolver->setAllowedTypes('separator', ['string', 'null']);
+        $resolver->setAllowedTypes('format', ['string', 'null']);
     }
 
     /**
@@ -53,11 +53,11 @@ class PouyaSoftSDateType extends AbstractType
     {
         $resolver->setDefaults(array(
             'invalid_message' => 'تاریخ وارد شده اشتباه است',
-            'separator' => '/'
+            'format' => 'Y/m/d'
         ));
 
         $resolver->setAllowedTypes(array(
-            'separator' => array('string', 'null')
+            'format' => array('string', 'null')
         ));
     }
 
