@@ -25,7 +25,7 @@ class jDateService
      * @param string $calendar (e.g. gregorian, persian, islamic, ...)
      * @return string
      */
-    public function georgianToPersian(\DateTime $georgian, $format = 'yyyy/MM/dd', $locale = 'en', $calendar = 'persian')
+    public function georgianToPersian(\DateTime $georgian = null, $format = 'yyyy/MM/dd', $locale = 'en', $calendar = 'persian')
     {
         return $this->intlDateTimeInstance($georgian, null, $calendar, $locale, null)->intlFormat($format);
     }

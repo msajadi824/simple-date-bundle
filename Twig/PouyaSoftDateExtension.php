@@ -29,7 +29,7 @@ class PouyaSoftDateExtension extends \Twig_Extension
      * @param string $calendar (e.g. gregorian, persian, islamic, ...)
      * @return string
      */
-    public function georgianToPersian($gDate, $format = 'yyyy/MM/dd', $locale = 'en', $calendar = 'persian')
+    public function georgianToPersian($gDate = null, $format = 'yyyy/MM/dd', $locale = 'en', $calendar = 'persian')
     {
         return $this->jDateService->georgianToPersian($gDate, $format, $locale, $format);
     }
