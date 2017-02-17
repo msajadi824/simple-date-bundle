@@ -13,16 +13,16 @@ class PouyaSoftSDateTransformer implements DataTransformerInterface
      */
     private $jDateService;
 
-    private $format;
+    private $serverFormat;
 
     /**
      * @param jDateService $jDateService
-     * @param $format
+     * @param $serverFormat
      */
-    public function __construct(jDateService $jDateService, $format)
+    public function __construct(jDateService $jDateService, $serverFormat)
     {
         $this->jDateService = $jDateService;
-        $this->format = $format;
+        $this->serverFormat = $serverFormat;
     }
 
     /**
@@ -39,7 +39,7 @@ class PouyaSoftSDateTransformer implements DataTransformerInterface
             throw new UnexpectedTypeException($gDate, 'DateTime');
         }
 
-        $result = $this->jDateService->georgianToPersian($gDate, $this->format);
+        $result = $this->jDateService->georgianToPersian($gDate, $this->serverFormat);
 
         if(!$result) {
             throw new TransformationFailedException(intl_get_error_message(), intl_get_error_code());
@@ -62,7 +62,7 @@ class PouyaSoftSDateTransformer implements DataTransformerInterface
             throw new UnexpectedTypeException($jDate, 'string');
         }
 
-        $result = $this->jDateService->persianToGeorgian($jDate, $this->format);
+        $result = $this->jDateService->persianToGeorgian($jDate, $this->serverFormat);
 
         if(!$result) {
             throw new TransformationFailedException(intl_get_error_message(), intl_get_error_code());

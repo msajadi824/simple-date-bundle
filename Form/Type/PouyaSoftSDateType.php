@@ -5,6 +5,8 @@ use PouyaSoft\SDateBundle\Form\DataTransformer\PouyaSoftSDateTransformer;
 use PouyaSoft\SDateBundle\Service\jDateService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -29,8 +31,16 @@ class PouyaSoftSDateType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $transformer = new PouyaSoftSDateTransformer($this->jDateService, $options['format']);
+        $transformer = new PouyaSoftSDateTransformer($this->jDateService, $options['serverFormat']);
         $builder->addModelTransformer($transformer);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['clientFormat'] = $options['clientFormat'];
     }
 
     /**
@@ -40,10 +50,12 @@ class PouyaSoftSDateType extends AbstractType
     {
         $resolver->setDefaults(array(
             'invalid_message' => 'تاریخ وارد شده اشتباه است',
-            'format' => 'yyyy/MM/dd'
+            'serverFormat' => 'yyyy/MM/dd',
+            'clientFormat' => 'yy/m/d',
         ));
 
-        $resolver->setAllowedTypes('format', ['string', 'null']);
+        $resolver->setAllowedTypes('serverFormat', ['string', 'null']);
+        $resolver->setAllowedTypes('clientFormat', ['string', 'null']);
     }
 
     /**
@@ -51,14 +63,7 @@ class PouyaSoftSDateType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'invalid_message' => 'تاریخ وارد شده اشتباه است',
-            'format' => 'yyyy/MM/dd'
-        ));
-
-        $resolver->setAllowedTypes(array(
-            'format' => array('string', 'null')
-        ));
+        $this->configureOptions($resolver);
     }
 
     /**

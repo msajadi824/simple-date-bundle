@@ -1,4 +1,12 @@
 {% block jSDate_widget -%}
-    {% set attr = attr|merge({class: (attr.class|default('') ~ ' jSDate')|trim}) -%}
+    {% set defaults = {
+        'data-is-rtl': 'true',
+        'data-change-month': 'true',
+        'data-change-year': 'true',
+        'data-date-format': clientFormat,
+        'class': attr.class|default('') ~ ' jSDate'
+    } %}
+
+    {% set attr = defaults|merge(attr) -%}
     {{- block('form_widget_simple') -}}
 {%- endblock jSDate_widget %}
