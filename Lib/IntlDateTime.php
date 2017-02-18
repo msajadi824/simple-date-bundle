@@ -325,9 +325,10 @@ class IntlDateTime extends \DateTime {
 	 *
 	 * @param string $pattern Date pattern in ICU syntax (@link http://userguide.icu-project.org/formatparse/datetime)
 	 * @param mixed $timezone DateTimeZone object or timezone identifier as full name (e.g. Asia/Tehran) or abbreviation (e.g. IRDT).
+	 * @param bool $latinizeDigits
 	 * @return string Formatted date on success or FALSE on failure.
 	 */
-	public function intlFormat($pattern, $timezone = null) {
+	public function intlFormat($pattern, $timezone = null, $latinizeDigits = false) {
         $tempTimezone = null;
 
         if (isset($timezone)) {
@@ -346,7 +347,7 @@ class IntlDateTime extends \DateTime {
 			$this->setTimezone($tempTimezone);
 		}
 
-		return $result;
+		return $latinizeDigits ? $this->latinizeDigits($result) : $result;
 	}
 
 	/**

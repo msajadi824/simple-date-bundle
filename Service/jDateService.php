@@ -13,7 +13,7 @@ class jDateService
      * @param string $calendar (e.g. gregorian, persian, islamic, ...)
      * @return \DateTime
      */
-    public function persianToGeorgian($persian, $format = 'yyyy/MM/dd', $locale = 'en', $calendar = 'persian')
+    public function persianToGeorgian($persian, $format = 'yyyy/MM/dd', $locale = 'fa', $calendar = 'persian')
     {
         return $this->intlDateTimeInstance($persian, null, $calendar, $locale, $format);
     }
@@ -23,11 +23,12 @@ class jDateService
      * @param string $format
      * @param string $locale (e.g. fa, fa_IR, en, en_US, en_UK, ...)
      * @param string $calendar (e.g. gregorian, persian, islamic, ...)
+     * @param bool $latinizeDigit
      * @return string
      */
-    public function georgianToPersian(\DateTime $georgian = null, $format = 'yyyy/MM/dd', $locale = 'en', $calendar = 'persian')
+    public function georgianToPersian(\DateTime $georgian = null, $format = 'yyyy/MM/dd', $locale = 'fa', $calendar = 'persian', $latinizeDigit = true)
     {
-        return $this->intlDateTimeInstance($georgian, null, $calendar, $locale, null)->intlFormat($format);
+        return $this->intlDateTimeInstance($georgian, null, $calendar, $locale, null)->intlFormat($format, null, $latinizeDigit);
     }
 
     /**
