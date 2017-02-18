@@ -28,7 +28,7 @@ class jDateService
      */
     public function georgianToPersian(\DateTime $georgian = null, $format = 'yyyy/MM/dd', $locale = 'fa', $calendar = 'persian', $latinizeDigit = true)
     {
-        return $this->intlDateTimeInstance($georgian, null, $calendar, $locale, null)->intlFormat($format, null, $latinizeDigit);
+        return $georgian ? $this->intlDateTimeInstance($georgian, null, $calendar, $locale, null)->intlFormat($format, null, $latinizeDigit) : '--';
     }
 
     /**
@@ -41,7 +41,7 @@ class jDateService
      * @param string $pattern the date pattern in which $time is formatted.
      * @return IntlDateTime
      */
-    public function intlDateTimeInstance($time = null, $timezone = null, $calendar = 'gregorian', $locale = 'en_US', $pattern = null)
+    public function intlDateTimeInstance($time = null, $timezone = null, $calendar = 'persian', $locale = 'fa', $pattern = null)
     {
         return new IntlDateTime($time, $timezone, $calendar, $locale, $pattern);
     }
