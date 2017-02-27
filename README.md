@@ -34,20 +34,30 @@ Service
 **Service Name:** pouya_soft.j_sdate_service
 
 **Functions:**
-- **MiladiToShamsi:** Convert Miladi (DateTime) To Shamsi (String). (Parameter: separator - default: /)
-- **ShamsiToMiladi:** Convert Shamsi (String) To Miladi (DateTime). (Parameter: separator - default: /)
-- **getWeekDay:**     Return WeekDay.
-- **isLeapYear:**     Return true or false.
+* **georgianToPersian:**  
+    Convert Georgian calendar (DateTime) To Persian (String).  
+    ***Parameter:***  
+    1. georgian: DateTime (default: `null`)
+    2. format: string (default: `yyyy/MM/dd`) [View Intl Format](http://userguide.icu-project.org/formatparse/datetime)
+    3. locale: string (default: `fa`) (e.g. fa, fa_IR, en, en_US, en_UK, ...)
+    4. calendar: string (default: `persian`) (e.g. gregorian, persian, islamic, ...)
+    5. latinizeDigit: bool (default: `true`)
+* **persianToGeorgian:**  
+    Convert Persian calendar (String) To Georgian (DateTime).  
+    ***Parameter:***  
+    1. persian: string
+    2. format: string (default: `yyyy/MM/dd`) [View Intl Format](http://userguide.icu-project.org/formatparse/datetime)
+    3. locale: string (default: `fa`) (e.g. fa, fa_IR, en, en_US, en_UK, ...)
+    4. calendar: string (default: `persian`) (e.g. gregorian, persian, islamic, ...)
+* **intlDateTimeInstance:**  
+    Return new Instance of IntlDateTime. [Visit Blog of Ali Farhadi](http://farhadi.ir/blog/1389/02/10/persian-calendar-for-php-53/)
 
 **Example:**
 ```php
-$shamsiString = $this->get('pouya_soft.j_sdate_service')->MiladiToShamsi(new \DateTime());
-//result: 1394/11/22
-$shamsiString = $this->get('pouya_soft.j_sdate_service')->MiladiToShamsi(new \DateTime(),'-');
-//result: 1394-11-22
-
-$miladiDate = $this->get('pouya_soft.j_sdate_service')->ShamsiToMiladi('1394/11/22');
-$miladiDate = $this->get('pouya_soft.j_sdate_service')->ShamsiToMiladi('1394-11-22','-');
+$shamsiString = $this->get('pouya_soft.j_sdate_service')->georgianToPersian(new \DateTime(), 'yyyy-MM-dd E');
+//result: 1394-11-22 دوشنبه
+$shamsiString = $this->get('pouya_soft.j_sdate_service')->persianToGeorgian('1394-11-22 دوشنبه', 'yyyy-MM-dd E');
+//result: An instance of DateTime
 ```
 
 Twig
