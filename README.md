@@ -36,23 +36,23 @@ Service
 **Functions:**
 * **georgianToPersian:**  
     Convert Georgian calendar (DateTime) To Persian (String).  
-    ***Parameter:***  
-    1. georgian: DateTime (default: `null`)
-    2. format: string (default: `yyyy/MM/dd`) [View Intl Format](http://userguide.icu-project.org/formatparse/datetime)
-    3. locale: string (default: `fa`) (e.g. fa, fa_IR, en, en_US, en_UK, ...)
-    4. calendar: string (default: `persian`) (e.g. gregorian, persian, islamic, ...)
-    5. latinizeDigit: bool (default: `true`)
+    ***Parameters:***  
+    * georgian: DateTime (default: `null`)
+    * format: string (default: `yyyy/MM/dd`) [View Intl Format](http://userguide.icu-project.org/formatparse/datetime)
+    * locale: string (default: `fa`) (e.g. fa, fa_IR, en, en_US, en_UK, ...)
+    * calendar: string (default: `persian`) (e.g. gregorian, persian, islamic, ...)
+    * latinizeDigit: bool (default: `true`) Convert Persian numbers to Latin Numbers.
 * **persianToGeorgian:**  
     Convert Persian calendar (String) To Georgian (DateTime).  
-    ***Parameter:***  
-    1. persian: string
-    2. format: string (default: `yyyy/MM/dd`) [View Intl Format](http://userguide.icu-project.org/formatparse/datetime)
-    3. locale: string (default: `fa`) (e.g. fa, fa_IR, en, en_US, en_UK, ...)
-    4. calendar: string (default: `persian`) (e.g. gregorian, persian, islamic, ...)
+    ***Parameters:***  
+    * persian: string
+    * format: string (default: `yyyy/MM/dd`) [View Intl Format](http://userguide.icu-project.org/formatparse/datetime)
+    * locale: string (default: `fa`) (e.g. fa, fa_IR, en, en_US, en_UK, ...)
+    * calendar: string (default: `persian`) (e.g. gregorian, persian, islamic, ...)
 * **intlDateTimeInstance:**  
     Return new Instance of IntlDateTime. [Visit Blog of Ali Farhadi](http://farhadi.ir/blog/1389/02/10/persian-calendar-for-php-53/)
 
-**Example:**
+**Sample:**
 ```php
 $shamsiString = $this->get('pouya_soft.j_sdate_service')->georgianToPersian(new \DateTime(), 'yyyy-MM-dd E');
 //result: 1394-11-22 دوشنبه
@@ -62,34 +62,72 @@ $shamsiString = $this->get('pouya_soft.j_sdate_service')->persianToGeorgian('139
 
 Twig
 --------------
-**Functions:**
-- **jSDate:** 
-Convert Miladi (DateTime) To Shamsi (String).  (Parameter: separator - default: /)
+**Functions:**  
+* **gpDate:**  
+    Convert Georgian calendar (DateTime) To Persian (String).  
+    ***Parameters:***  
+    * georgian: DateTime (default: `null`)
+    * format: string (default: `yyyy/MM/dd`) [View Intl Format](http://userguide.icu-project.org/formatparse/datetime)
+    * locale: string (default: `fa`) (e.g. fa, fa_IR, en, en_US, en_UK, ...)
+    * calendar: string (default: `persian`) (e.g. gregorian, persian, islamic, ...)
+    * latinizeDigit: bool (default: `true`) Convert Persian numbers to Latin Numbers.
+* **pgDate:**  
+    Convert Persian calendar (String) To Georgian (DateTime).  
+    ***Parameters:***  
+    * persian: string
+    * format: string (default: `yyyy/MM/dd`) [View Intl Format](http://userguide.icu-project.org/formatparse/datetime)
+    * locale: string (default: `fa`) (e.g. fa, fa_IR, en, en_US, en_UK, ...)
+    * calendar: string (default: `persian`) (e.g. gregorian, persian, islamic, ...)
 
-**Example:**
+**Sample:**
 ```twig
-{{ date|jSDate }} <br>
-{{ date|jSDate('-') }} <br>
+{{ date|gpDate }} <br>
+{{ date|gpDate('yyyy-MM-dd E') }} <br>
+{{ '1394/11/22'|gpDate }} <br>
+{{ '1394-11-22 دوشنبه'|gpDate('yyyy-MM-dd E') }} <br>
 ```
 
 Form
 --------------
-**Type Name:** jSDate (Parameter: separator - default: /)
+**Type Name:** PouyaSoftSDateType  
 
-**Example:**
+**Parameters:**
+* serverFormat: string (default: `yyyy/MM/dd`) [View Intl Format](http://userguide.icu-project.org/formatparse/datetime)  
+* clientFormat: string (default: `yy/m/d`) [View DatePicker Format](https://api.jqueryui.com/datepicker/#utility-formatDate)  
+* attr: array  
+    You can add other DatePicker options to this param, but must change uppercase letters to lower and add dash before it. (see Samples) 
+
+**Sample:**
 ```php
 $builder
-    ->add('date', 'jSDate', ['separator' => '/'])
+    ->add('date', PouyaSoftSDateType::class, [
+        'serverFormat' => 'yyyy/MM/dd',
+        'clientFormat' => 'yy/m/d',
+        'attr' => [
+            'data-min-date' => '-100y',
+            'data-max-date' => '-1y',
+            'data-year-range' => 'c-100:c+100',
+            'data-default-date' => '-20y'
+        ]
+    ])
+    ->add('date2', PouyaSoftSDateType::class, [
+        'serverFormat' => 'yyyy-MM-dd E',
+        'clientFormat' => 'yy-m-d DD',
+        'attr' => [
+            'data-min-date' => '0',
+            'data-max-date' => '+100',
+        ]
+    ])
 ```
 
 
 Date Picker
 --------------
 **Requirements:**
-- Bootstrap
-- Jquery
+* Bootstrap
+* Jquery
 
-**Add this to head tag in 'base.html.twig' file:**
+**Add this lines to head tag in `base.html.twig` file:**
 
 ```html
 <head>
@@ -99,18 +137,14 @@ Date Picker
 </head>
 ```
 
-**Add this to end of body tag in 'base.html.twig' file:**
+**Add this lines to end of body tag in `base.html.twig` file:**
 ```html
 <script type="text/javascript" src="{{ asset('bundles/pouyasoftsdate/lib/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/pouyasoftsdate/lib/bootstrap-datepicker/bootstrap-datepicker.fa.min.js') }}"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".jSDate").datepicker({isRTL: true, dateFormat: "yy/m/d", changeMonth: true, changeYear: true});
-    });
-</script>
+<script type="text/javascript" src="{{ asset('bundles/pouyasoftsdate/jsDatePicker.js') }}"></script>
 ```
 
-**Add this to 'app/config.yml' file:**
+**Add this lines to `app/config.yml` file:**
 ```yaml
 twig:
     form_themes:
@@ -118,4 +152,8 @@ twig:
 ```
 
 **References:**
-- [Bootstrap Jalali Datepicker](http://mousavian.github.io/bootstrap-jalali-datepicker/)
+* [Blog of Ali Farhadi](http://farhadi.ir/blog/1389/02/10/persian-calendar-for-php-53/)
+* [View Intl Format](http://userguide.icu-project.org/formatparse/datetime)
+* [Class Intldateformatter](http://php.net/manual/en/class.intldateformatter.php)
+* [Bootstrap Jalali Datepicker](http://mousavian.github.io/bootstrap-jalali-datepicker/)
+* [JqueryUI DatePicker](https://api.jqueryui.com/datepicker)
