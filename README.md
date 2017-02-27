@@ -95,7 +95,9 @@ Form
 * serverFormat: string (default: `yyyy/MM/dd`) [View Intl Format](http://userguide.icu-project.org/formatparse/datetime)  
 * clientFormat: string (default: `yy/m/d`) [View DatePicker Format](https://api.jqueryui.com/datepicker/#utility-formatDate)  
 * attr: array  
-    You can add other DatePicker options to this param, but must change uppercase letters to lower and add dash before it. (see Samples) 
+    You can add other DatePicker options to this param, but must change uppercase letters to lower and add dash before it. (see Samples)
+     
+***note:*** Result of serverFormat and clientFormat, must be the same.
 
 **Sample:**
 ```php
