@@ -71,7 +71,15 @@ class PouyaSoftSDateType extends AbstractType
      */
     public function getParent()
     {
-        return 'text';
+        return 'Symfony\Component\Form\Extension\Core\Type\TextType';
+    }
+
+    /**
+     * @return string
+     */
+    public function getBlockPrefix()
+    {
+        return 'jSDate';
     }
 
     /**
@@ -79,6 +87,6 @@ class PouyaSoftSDateType extends AbstractType
      */
     public function getName()
     {
-        return 'jSDate';
+        return $this->getBlockPrefix();
     }
 } 
