@@ -4,7 +4,8 @@
         'data-change-month': 'true',
         'data-change-year': 'true',
         'data-date-format': clientFormat,
-        'class': attr.class|default('') ~ ' jSDate'
+        'class': attr.class|default('') ~ ' jSDate',
+        'style': attr.style|default('') ~ ' position: relative; z-index: 100000;'
     } %}
 
     {% set attr = defaults|merge(attr) -%}
