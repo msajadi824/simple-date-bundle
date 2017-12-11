@@ -51,7 +51,7 @@ class PouyaSoftSDateType extends AbstractType
         $resolver->setDefaults(array(
             'invalid_message' => 'تاریخ وارد شده اشتباه است',
             'serverFormat' => 'yyyy/MM/dd',
-            'pickerOptions' => ['format' => 'YYYY/MM/DD'],
+            'pickerOptions' => [],
         ));
 
         $resolver->setAllowedTypes('serverFormat', ['string', 'null']);

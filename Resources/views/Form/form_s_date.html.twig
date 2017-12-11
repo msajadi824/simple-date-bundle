@@ -2,33 +2,23 @@
     {{- block('form_widget_simple') -}}
 
     {% set dateOptions = {
-        'initialValue': false,
-        'calendarType': 'persian',
-        'toolbox': {
-            'calendarSwitch': {
-                'enabled': false
-            }
-        },
-        'format': 'YYYY/MM/DD',
-        'timePicker': {
-            'enabled': false,
-            'second': {
-                'enabled': false
-            },
-            'meridian': {
-                'enabled': true
-            }
-        },
-        'observer': true,
-        'autoClose': true
+        'Placement': 'bottom',
+        'Trigger': 'focus',
+        'EnableTimePicker': false,
+        'TargetSelector': '#' ~ id,
+        'GroupId': '',
+        'FromDate': false,
+        'ToDate': false,
+        'DisableBeforeToday': false,
+        'Disabled': false,
+        'Format': 'yyyy/MM/dd',
+        'IsGregorian': false,
+        'EnglishNumber': false
     }|merge(pickerOptions) %}
-
-    {# minDate: new persianDate().subtract('month', 3).valueOf() #}
-    {# maxDate: new persianDate().add('month', 3).valueOf() #}
 
     <script type="text/javascript">
         $(function () {
-            $('#{{ id }}').pDatepicker({{ dateOptions|json_encode(constant('JSON_PRETTY_PRINT'))|raw }});
+            $('#{{ id }}').MdPersianDateTimePicker({{ dateOptions|json_encode(constant('JSON_PRETTY_PRINT'))|raw }});
         });
     </script>
 {%- endblock jSDate_widget %}
