@@ -1,12 +1,34 @@
 {% block jSDate_widget -%}
-    {% set defaults = {
-        'data-is-rtl': 'true',
-        'data-change-month': 'true',
-        'data-change-year': 'true',
-        'data-date-format': clientFormat,
-        'class': attr.class|default('') ~ ' jSDate',
-    } %}
-
-    {% set attr = defaults|merge(attr) -%}
     {{- block('form_widget_simple') -}}
+
+    {% set dateOptions = {
+        'initialValue': false,
+        'calendarType': 'persian',
+        'toolbox': {
+            'calendarSwitch': {
+                'enabled': false
+            }
+        },
+        'format': 'YYYY/MM/DD',
+        'timePicker': {
+            'enabled': false,
+            'second': {
+                'enabled': false
+            },
+            'meridian': {
+                'enabled': true
+            }
+        },
+        'observer': true,
+        'autoClose': true
+    }|merge(pickerOptions) %}
+
+    {# minDate: new persianDate().subtract('month', 3).valueOf() #}
+    {# maxDate: new persianDate().add('month', 3).valueOf() #}
+
+    <script type="text/javascript">
+        $(function () {
+            $('#{{ id }}').pDatepicker({{ dateOptions|json_encode(constant('JSON_PRETTY_PRINT'))|raw }});
+        });
+    </script>
 {%- endblock jSDate_widget %}

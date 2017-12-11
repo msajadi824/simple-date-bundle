@@ -40,7 +40,7 @@ class PouyaSoftSDateType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['clientFormat'] = $options['clientFormat'];
+        $view->vars['pickerOptions'] = $options['pickerOptions'];
     }
 
     /**
@@ -51,11 +51,11 @@ class PouyaSoftSDateType extends AbstractType
         $resolver->setDefaults(array(
             'invalid_message' => 'تاریخ وارد شده اشتباه است',
             'serverFormat' => 'yyyy/MM/dd',
-            'clientFormat' => 'yy/m/d',
+            'pickerOptions' => ['format' => 'YYYY/MM/DD'],
         ));
 
         $resolver->setAllowedTypes('serverFormat', ['string', 'null']);
-        $resolver->setAllowedTypes('clientFormat', ['string', 'null']);
+        $resolver->setAllowedTypes('pickerOptions', ['array', 'null']);
     }
 
     /**
