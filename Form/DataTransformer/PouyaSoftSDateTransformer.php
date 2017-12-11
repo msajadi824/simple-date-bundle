@@ -39,7 +39,7 @@ class PouyaSoftSDateTransformer implements DataTransformerInterface
             throw new UnexpectedTypeException($gDate, 'DateTime');
         }
 
-        $result = $this->jDateService->georgianToPersian($gDate, $this->serverFormat);
+        $result = $this->jDateService->georgianToPersian($gDate, $this->serverFormat, 'fa', 'persian', false);
 
         if(!$result) {
             throw new TransformationFailedException(intl_get_error_message(), intl_get_error_code());

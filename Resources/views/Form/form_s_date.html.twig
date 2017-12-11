@@ -1,12 +1,24 @@
 {% block jSDate_widget -%}
-    {% set defaults = {
-        'data-is-rtl': 'true',
-        'data-change-month': 'true',
-        'data-change-year': 'true',
-        'data-date-format': clientFormat,
-        'class': attr.class|default('') ~ ' jSDate',
-    } %}
-
-    {% set attr = defaults|merge(attr) -%}
     {{- block('form_widget_simple') -}}
+
+    {% set dateOptions = {
+        'Placement': 'bottom',
+        'Trigger': 'focus',
+        'EnableTimePicker': false,
+        'TargetSelector': '#' ~ id,
+        'GroupId': '',
+        'FromDate': false,
+        'ToDate': false,
+        'DisableBeforeToday': false,
+        'Disabled': false,
+        'Format': 'yyyy/MM/dd',
+        'IsGregorian': false,
+        'EnglishNumber': false
+    }|merge(pickerOptions) %}
+
+    <script type="text/javascript">
+        $(function () {
+            $('#{{ id }}').MdPersianDateTimePicker({{ dateOptions|json_encode(constant('JSON_PRETTY_PRINT'))|raw }});
+        });
+    </script>
 {%- endblock jSDate_widget %}
