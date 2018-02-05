@@ -41,7 +41,7 @@ Service
     * format: string (default: `yyyy/MM/dd`) [View Intl Format](http://userguide.icu-project.org/formatparse/datetime)
     * locale: string (default: `fa`) (e.g. fa, fa_IR, en, en_US, en_UK, ...)
     * calendar: string (default: `persian`) (e.g. gregorian, persian, islamic, ...)
-    * latinizeDigit: bool (default: `true`) Convert Persian numbers to Latin Numbers.
+    * latinizeDigit: bool (default: `false`) Convert Persian numbers to Latin Numbers.
 * **persianToGeorgian:**  
     Convert Persian calendar (String) To Georgian (DateTime).  
     ***Parameters:***  
@@ -55,7 +55,7 @@ Service
 **Sample:**
 ```php
 $shamsiString = $this->get('pouya_soft.j_sdate_service')->georgianToPersian(new \DateTime(), 'yyyy-MM-dd E');
-//result: 1394-11-22 دوشنبه
+//result: ۱۳۹۴-۱۱-۲۲ دوشنبه
 $shamsiString = $this->get('pouya_soft.j_sdate_service')->persianToGeorgian('1394-11-22 دوشنبه', 'yyyy-MM-dd E');
 //result: An instance of DateTime
 ```
@@ -70,7 +70,7 @@ Twig
     * format: string (default: `yyyy/MM/dd`) [View Intl Format](http://userguide.icu-project.org/formatparse/datetime)
     * locale: string (default: `fa`) (e.g. fa, fa_IR, en, en_US, en_UK, ...)
     * calendar: string (default: `persian`) (e.g. gregorian, persian, islamic, ...)
-    * latinizeDigit: bool (default: `true`) Convert Persian numbers to Latin Numbers.
+    * latinizeDigit: bool (default: `false`) Convert Persian numbers to Latin Numbers.
 * **pgDate:**  
     Convert Persian calendar (String) To Georgian (DateTime).  
     ***Parameters:***  
@@ -104,20 +104,21 @@ Form
 $builder
     ->add('date', PouyaSoftSDateType::class, [
         'serverFormat' => 'yyyy/MM/dd',
-        'clientFormat' => 'yy/m/d',
-        'attr' => [
-            'data-min-date' => '-100y',
-            'data-max-date' => '-1y',
-            'data-year-range' => 'c-100:c+100',
-            'data-default-date' => '-20y'
+        'pickerOptions' => [
+            'Format' => 'yyyy/MM/dd',
+            'EnableTimePicker' => true,
+            'GroupId' => 'group1',
+            'FromDate' => true,
+            'DisableBeforeToday' => true,
         ]
     ])
     ->add('date2', PouyaSoftSDateType::class, [
         'serverFormat' => 'yyyy-MM-dd E',
-        'clientFormat' => 'yy-m-d DD',
-        'attr' => [
-            'data-min-date' => '0',
-            'data-max-date' => '+100',
+        'pickerOptions' => [
+            'Format' => 'yyyy/MM/dd',
+            'EnableTimePicker' => true,
+            'GroupId' => 'group1',
+            'ToDate' => true,
         ]
     ])
 ```
@@ -134,16 +135,15 @@ Date Picker
 ```html
 <head>
     ...
-    <link rel="stylesheet" href="{{ asset('bundles/pouyasoftsdate/lib/bootstrap-datepicker/bootstrap-datepicker.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bundles/pouyasoftsdate/MdBootstrapPersianDateTimePicker/css/jquery.Bootstrap-PersianDateTimePicker.css') }}" />
     ...
 </head>
 ```
 
 **Add this lines to end of body tag in `base.html.twig` file:**
 ```html
-<script type="text/javascript" src="{{ asset('bundles/pouyasoftsdate/lib/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/pouyasoftsdate/lib/bootstrap-datepicker/bootstrap-datepicker.fa.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/pouyasoftsdate/jsDatePicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/pouyasoftsdate/MdBootstrapPersianDateTimePicker/js/jalaali.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/pouyasoftsdate/MdBootstrapPersianDateTimePicker/js/jquery.Bootstrap-PersianDateTimePicker.js') }}"></script>
 ```
 
 **Add this lines to `app/config.yml` file:**
@@ -157,5 +157,4 @@ twig:
 * [Blog of Ali Farhadi](http://farhadi.ir/blog/1389/02/10/persian-calendar-for-php-53/)
 * [View Intl Format](http://userguide.icu-project.org/formatparse/datetime)
 * [Class Intldateformatter](http://php.net/manual/en/class.intldateformatter.php)
-* [Bootstrap Jalali Datepicker](http://mousavian.github.io/bootstrap-jalali-datepicker/)
-* [JqueryUI DatePicker](https://api.jqueryui.com/datepicker)
+* [MD.BootstrapPersianDateTimePicker](https://github.com/Mds92/MD.BootstrapPersianDateTimePicker)
