@@ -12,7 +12,7 @@
         'DisableBeforeToday': false,
         'Disabled': false,
         'Format': 'yyyy/MM/dd',
-        'IsGregorian': false,
+        'IsGregorian': (app.request.getLocale() == 'fa' ? false : true),
         'EnglishNumber': false
     }|merge(pickerOptions) %}
 
