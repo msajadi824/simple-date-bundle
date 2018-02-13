@@ -7,22 +7,22 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PouyaSoftSDateType extends AbstractType
 {
-    /**
-     * @var jDateService
-     */
+    /** @var jDateService */
     private $jDateService;
 
-    /**
-     * @param jDateService $jDateService
-     */
-    public function __construct(jDateService $jDateService)
+    /** @var string */
+    protected $locale;
+
+    public function __construct(jDateService $jDateService, RequestStack $requestStack)
     {
         $this->jDateService = $jDateService;
+        $this->locale = $requestStack->getCurrentRequest()->getLocale() == 'fa' ? 'fa' : 'en';
     }
 
     /**
@@ -31,7 +31,7 @@ class PouyaSoftSDateType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $transformer = new PouyaSoftSDateTransformer($this->jDateService, $options['serverFormat']);
+        $transformer = new PouyaSoftSDateTransformer($this->jDateService, $options['serverFormat'], $options['locale']);
         $builder->addModelTransformer($transformer);
     }
 
@@ -41,6 +41,7 @@ class PouyaSoftSDateType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['pickerOptions'] = $options['pickerOptions'];
+        $view->vars['locale'] = $options['locale'];
     }
 
     /**
@@ -49,12 +50,15 @@ class PouyaSoftSDateType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'invalid_message' => 'تاریخ وارد شده اشتباه است',
+            'invalid_message' => $this->locale == 'fa' ? 'تاریخ وارد شده اشتباه است' : 'Selected date is invalid.',
             'serverFormat' => 'yyyy/MM/dd',
+            'locale' => $this->locale,
             'pickerOptions' => [],
         ));
 
         $resolver->setAllowedTypes('serverFormat', ['string', 'null']);
+        $resolver->setAllowedTypes('locale', ['string', 'null']);
+        $resolver->setAllowedValues('locale', ['fa', 'en', null]);
         $resolver->setAllowedTypes('pickerOptions', ['array', 'null']);
     }
 

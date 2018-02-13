@@ -8,21 +8,29 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
 class PouyaSoftSDateTransformer implements DataTransformerInterface
 {
-    /**
-     * @var jDateService
-     */
+    /** @var jDateService */
     private $jDateService;
 
+    /** @var string */
     private $serverFormat;
+
+    /** @var string */
+    private $locale;
+
+    /** @var string */
+    private $calendar;
 
     /**
      * @param jDateService $jDateService
-     * @param $serverFormat
+     * @param string $serverFormat
+     * @param string $locale
      */
-    public function __construct(jDateService $jDateService, $serverFormat)
+    public function __construct(jDateService $jDateService, $serverFormat, $locale)
     {
         $this->jDateService = $jDateService;
         $this->serverFormat = $serverFormat;
+        $this->locale = $locale;
+        $this->calendar = $locale == 'fa' ? 'persian' : 'gregorian';
     }
 
     /**
@@ -39,7 +47,7 @@ class PouyaSoftSDateTransformer implements DataTransformerInterface
             throw new UnexpectedTypeException($gDate, 'DateTime');
         }
 
-        $result = $this->jDateService->georgianToPersian($gDate, $this->serverFormat, 'fa', 'persian', false);
+        $result = $this->jDateService->georgianToPersian($gDate, $this->serverFormat, $this->locale, $this->calendar, false);
 
         if(!$result) {
             throw new TransformationFailedException(intl_get_error_message(), intl_get_error_code());
@@ -62,7 +70,7 @@ class PouyaSoftSDateTransformer implements DataTransformerInterface
             throw new UnexpectedTypeException($jDate, 'string');
         }
 
-        $result = $this->jDateService->persianToGeorgian($jDate, $this->serverFormat);
+        $result = $this->jDateService->persianToGeorgian($jDate, $this->serverFormat, $this->locale, $this->calendar);
 
         if(!$result) {
             throw new TransformationFailedException(intl_get_error_message(), intl_get_error_code());

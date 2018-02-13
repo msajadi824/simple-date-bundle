@@ -12,8 +12,8 @@
         'DisableBeforeToday': false,
         'Disabled': false,
         'Format': 'yyyy/MM/dd',
-        'IsGregorian': (app.request.getLocale() == 'fa' ? false : true),
-        'EnglishNumber': false
+        'IsGregorian': locale != 'fa',
+        'EnglishNumber': locale != 'fa'
     }|merge(pickerOptions) %}
 
     <script type="text/javascript">
