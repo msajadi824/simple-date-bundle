@@ -1,6 +1,7 @@
 services:
     pouya_soft.j_sdate_service:
         class: PouyaSoft\SDateBundle\Service\jDateService
+        arguments: ["@request_stack"]
 
     pouya_soft.sdate_extension:
         class: PouyaSoft\SDateBundle\Twig\PouyaSoftDateExtension

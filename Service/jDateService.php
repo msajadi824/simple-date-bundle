@@ -3,9 +3,17 @@
 namespace PouyaSoft\SDateBundle\Service;
 
 use PouyaSoft\SDateBundle\Lib\IntlDateTime;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class jDateService
 {
+    protected $requestStack;
+
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
+
     /**
      * @param string $persian
      * @param string $format
@@ -44,5 +52,30 @@ class jDateService
     public function intlDateTimeInstance($time = null, $timezone = null, $calendar = 'persian', $locale = 'fa', $pattern = null)
     {
         return new IntlDateTime($time, $timezone, $calendar, $locale, $pattern);
+    }
+
+    /**
+     * @param \DateTime $georgian
+     * @param string $format
+     * @param string $locale (e.g. fa, fa_IR, en, en_US, en_UK, ...)
+     * @param string $calendar (e.g. gregorian, persian, islamic, ...)
+     * @param bool $latinizeDigit
+     * @return string
+     */
+    public function georgianToLocale($georgian = null, $format = 'yyyy/MM/dd', $locale = null, $calendar = null, $latinizeDigit = false)
+    {
+        if(!$locale)
+            $locale = $this->requestStack->getCurrentRequest()->getLocale();
+
+        if(!$calendar) {
+            switch (substr($locale, 0, 2)) {
+                case 'en': $calendar = 'georgian'; break;
+                case 'fa': $calendar = 'persian'; break;
+                case 'ar': $calendar = 'islamic'; break;
+                default:   $calendar = 'georgian'; break;
+            }
+        }
+
+        return $georgian ? $this->intlDateTimeInstance($georgian, null, $calendar, $locale, null)->intlFormat($format, null, $latinizeDigit) : '--';
     }
 }
