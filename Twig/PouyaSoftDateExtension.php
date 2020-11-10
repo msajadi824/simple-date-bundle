@@ -3,8 +3,10 @@
 namespace PouyaSoft\SDateBundle\Twig;
 
 use PouyaSoft\SDateBundle\Service\jDateService;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
-class PouyaSoftDateExtension extends \Twig_Extension
+class PouyaSoftDateExtension extends AbstractExtension
 {
     /** @var  jDateService */
     private $jDateService;
@@ -17,9 +19,9 @@ class PouyaSoftDateExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('gpDate', array($this, 'georgianToPersian')),
-            new \Twig_SimpleFilter('pgDate', array($this, 'persianToGeorgian')),
-            new \Twig_SimpleFilter('glDate', array($this, 'georgianToLocale')),
+            new TwigFilter('gpDate', [$this, 'georgianToPersian']),
+            new TwigFilter('pgDate', [$this, 'persianToGeorgian']),
+            new TwigFilter('glDate', [$this, 'georgianToLocale']),
         );
     }
 
