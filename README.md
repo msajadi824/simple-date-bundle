@@ -10,25 +10,6 @@ Install
 $ php composer require pouyasoft_ir/simple-date-bundle
 ```
 
-- **Add to AppKernel:**
-
-```php
-class AppKernel extends Kernel
-{
-    public function registerBundles()
-    {
-        $bundles = array(
-            new PouyaSoft\SDateBundle\PouyaSoftSDateBundle(),
-    }
-}
-```
-
-- **install assets:** 
-
-```
-$ php app/console assets:install
-```
-
 Service
 --------------
 **Service Name:** pouya_soft.j_sdate_service
@@ -135,15 +116,15 @@ Date Picker
 ```html
 <head>
     ...
-    <link rel="stylesheet" href="{{ asset('bundles/pouyasoftsdate/MdBootstrapPersianDateTimePicker/css/jquery.Bootstrap-PersianDateTimePicker.css') }}" />
+	
+    <link rel="stylesheet" href="{{ asset('bundles/pouyasoftsdate/MdBootstrapPersianDateTimePicker/jquery.md.bootstrap.datetimepicker.style.css') }}" />
     ...
 </head>
 ```
 
 **Add this lines to end of body tag in `base.html.twig` file:**
 ```html
-<script type="text/javascript" src="{{ asset('bundles/pouyasoftsdate/MdBootstrapPersianDateTimePicker/js/jalaali.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/pouyasoftsdate/MdBootstrapPersianDateTimePicker/js/jquery.Bootstrap-PersianDateTimePicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/pouyasoftsdate/MdBootstrapPersianDateTimePicker/jquery.md.bootstrap.datetimepicker.js') }}"></script>
 ```
 
 **Add this lines to `app/config.yml` file:**
