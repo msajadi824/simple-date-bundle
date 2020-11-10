@@ -2,18 +2,18 @@
     {{- block('form_widget_simple') -}}
 
     {% set dateOptions = {
-        'Placement': 'bottom',
-        'Trigger': 'focus',
-        'EnableTimePicker': false,
-        'TargetSelector': '#' ~ id,
-        'GroupId': '',
-        'FromDate': false,
-        'ToDate': false,
-        'DisableBeforeToday': false,
-        'Disabled': false,
-        'Format': 'yyyy/MM/dd',
-        'IsGregorian': locale != 'fa',
-        'EnglishNumber': locale != 'fa'
+        'placement': 'bottom',
+        'trigger': 'focus',
+        'enableTimePicker': false,
+        'targetTextSelector': '#' ~ id,
+        'groupId': '',
+        'fromDate': false,
+        'toDate': false,
+        'disableBeforeToday': false,
+        'disabled': false,
+        'textFormat': 'yyyy/MM/dd',
+        'isGregorian': locale != 'fa',
+        'englishNumber': locale != 'fa'
     }|merge(pickerOptions) %}
 
     <script type="text/javascript">
