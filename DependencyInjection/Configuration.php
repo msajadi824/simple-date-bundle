@@ -17,8 +17,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('pouya_soft_s_date');
+        $treeBuilder = new TreeBuilder('pouya_soft_s_date');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
