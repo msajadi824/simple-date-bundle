@@ -3,6 +3,7 @@ services:
         class: PouyaSoft\SDateBundle\Service\jDateService
         arguments: ["@request_stack"]
         public: true
+        autowire: true
 
     pouya_soft.sdate_extension:
         class: PouyaSoft\SDateBundle\Twig\PouyaSoftDateExtension
