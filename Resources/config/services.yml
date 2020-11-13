@@ -17,3 +17,5 @@ services:
             - { name: form.type, alias: jSDate }
         arguments: [ "@pouya_soft.j_sdate_service", "@request_stack" ]
         public: true
+        
+    PouyaSoft\SDateBundle\Service\jDateService: '@pouya_soft.j_sdate_service'
