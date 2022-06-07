@@ -21,9 +21,9 @@ class jDateService
      * @param string $calendar (e.g. gregorian, persian, islamic, ...)
      * @return \DateTime
      */
-    public function persianToGeorgian($persian, $format = 'yyyy/MM/dd', $locale = 'fa', $calendar = 'persian')
+    public static function persianToGeorgian($persian, $format = 'yyyy/MM/dd', $locale = 'fa', $calendar = 'persian')
     {
-        return $this->intlDateTimeInstance($persian, null, $calendar, $locale, $format);
+        return jDateService::intlDateTimeInstance($persian, null, $calendar, $locale, $format);
     }
 
     /**
@@ -34,9 +34,9 @@ class jDateService
      * @param bool $latinizeDigit
      * @return string
      */
-    public function georgianToPersian($georgian = null, $format = 'yyyy/MM/dd', $locale = 'fa', $calendar = 'persian', $latinizeDigit = false)
+    public static function georgianToPersian($georgian = null, $format = 'yyyy/MM/dd', $locale = 'fa', $calendar = 'persian', $latinizeDigit = false)
     {
-        return $georgian ? $this->intlDateTimeInstance($georgian, null, $calendar, $locale, null)->intlFormat($format, null, $latinizeDigit) : '--';
+        return $georgian ? jDateService::intlDateTimeInstance($georgian, null, $calendar, $locale, null)->intlFormat($format, null, $latinizeDigit) : '--';
     }
 
     /**
@@ -49,7 +49,7 @@ class jDateService
      * @param string $pattern the date pattern in which $time is formatted.
      * @return IntlDateTime
      */
-    public function intlDateTimeInstance($time = null, $timezone = null, $calendar = 'persian', $locale = 'fa', $pattern = null)
+    public static function intlDateTimeInstance($time = null, $timezone = null, $calendar = 'persian', $locale = 'fa', $pattern = null)
     {
         return new IntlDateTime($time, $timezone, $calendar, $locale, $pattern);
     }
@@ -76,6 +76,6 @@ class jDateService
             }
         }
 
-        return $georgian ? $this->intlDateTimeInstance($georgian, null, $calendar, $locale, null)->intlFormat($format, null, $latinizeDigit) : '--';
+        return $georgian ? jDateService::intlDateTimeInstance($georgian, null, $calendar, $locale, null)->intlFormat($format, null, $latinizeDigit) : '--';
     }
 }
