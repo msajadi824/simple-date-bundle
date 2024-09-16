@@ -17,9 +17,8 @@
   },
   "autoload" : {
     "psr-4" : {
-      "PouyaSoft\\SDateBundle" : "src/"
+      "PouyaSoft\\SDateBundle\\" : "src/"
     }
   },
-  "target-dir" : "PouyaSoft/SDateBundle",
   "minimum-stability": "dev"
 }
