@@ -17,3 +17,9 @@ services:
             - { name: form.type, alias: jSDate }
         arguments: [ "@pouya_soft.j_sdate_service", "@request_stack" ]
         public: true
+
+    pouya_soft.form.type.j_sdate:
+        class: PouyaSoft\SDateBundle\Form\Type\PouyaSoftPersianSDateType
+        tags:
+            - { name: form.type, alias: persianSDate }
+        public: true
