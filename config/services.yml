@@ -23,3 +23,8 @@ services:
         tags:
             - { name: form.type, alias: persianSDate }
         public: true
+
+    PouyaSoft\SDateBundle\Service\jDateService: '@pouya_soft.j_sdate_service'
+    PouyaSoft\SDateBundle\Twig\PouyaSoftDateExtension: '@pouya_soft.sdate_extension'
+    PouyaSoft\SDateBundle\Form\Type\PouyaSoftSDateType: '@pouya_soft.form.type.j_sdate'
+    PouyaSoft\SDateBundle\Form\Type\PouyaSoftPersianSDateType: '@pouya_soft.form.type.persian_sdate'
