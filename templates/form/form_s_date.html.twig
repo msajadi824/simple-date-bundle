@@ -22,3 +22,28 @@
         });
     </script>
 {%- endblock jSDate_widget %}
+
+{% block persianSDate_widget -%}
+    {{- block('form_widget_simple') -}}
+
+    {% set dateOptions = {
+        'placement': 'bottom',
+        'trigger': 'focus',
+        'enableTimePicker': false,
+        'targetTextSelector': '#' ~ id,
+        'groupId': '',
+        'fromDate': false,
+        'toDate': false,
+        'disableBeforeToday': false,
+        'disabled': false,
+        'textFormat': 'yyyy/MM/dd',
+        'isGregorian': false,
+        'englishNumber': false
+    }|merge(pickerOptions) %}
+
+    <script type="text/javascript">
+        $(function () {
+            $('#{{ id }}').MdPersianDateTimePicker({{ dateOptions|json_encode(constant('JSON_PRETTY_PRINT'))|raw }});
+        });
+    </script>
+{%- endblock persianSDate_widget %}
