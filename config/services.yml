@@ -5,6 +5,7 @@ services:
 
     pouya_soft.j_sdate_service:
         alias: PouyaSoft\SDateBundle\Service\jDateService
+        public: true
 
     PouyaSoft\SDateBundle\Twig\PouyaSoftDateExtension:
         tags: ['twig.extension']
@@ -13,14 +14,21 @@ services:
 
     pouya_soft.sdate_extension:
         alias: PouyaSoft\SDateBundle\Twig\PouyaSoftDateExtension
+        public: true
 
     PouyaSoft\SDateBundle\Form\Type\PouyaSoftSDateType:
-        alias: 'jSDate'
         tags: ['form.type']
         arguments: [ "@pouya_soft.j_sdate_service", "@request_stack" ]
         public: true
 
+    jSDate:
+        alias: PouyaSoft\SDateBundle\Form\Type\PouyaSoftSDateType
+        public: true
+
     PouyaSoft\SDateBundle\Form\Type\PouyaSoftPersianSDateType:
-        alias: 'persianSDate'
         tags: ['form.type']
+        public: true
+
+    persianSDate:
+        alias: PouyaSoft\SDateBundle\Form\Type\PouyaSoftPersianSDateType
         public: true
