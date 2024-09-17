@@ -127,11 +127,11 @@ Date Picker
 <script type="text/javascript" src="{{ asset('bundles/pouyasoftsdate/MdBootstrapPersianDateTimePicker/jquery.md.bootstrap.datetimepicker.js') }}"></script>
 ```
 
-**Add this lines to `app/config.yml` file:**
+**Add this lines to `config/packages/twig.yaml` file:**
 ```yaml
 twig:
     form_themes:
-        - 'PouyaSoftSDateBundle:Form:form_s_date.html.twig'
+        - '@PouyaSoftSDate/form/form_s_date.html.twig'
 ```
 
 **References:**
