@@ -21,7 +21,7 @@ class PouyaSoftSDateTransformer implements DataTransformerInterface
         $this->calendar = $locale == 'fa' ? 'persian' : 'gregorian';
     }
 
-    public function transform(\DateTime $gDate)
+    public function transform(mixed $gDate): mixed
     {
         if($gDate === null) {
             return null;
@@ -40,7 +40,7 @@ class PouyaSoftSDateTransformer implements DataTransformerInterface
         return $result;
     }
 
-    public function reverseTransform(string $jDate): ?\DateTime
+    public function reverseTransform(mixed $jDate): mixed
     {
         if($jDate === null || $jDate === '') {
             return null;
