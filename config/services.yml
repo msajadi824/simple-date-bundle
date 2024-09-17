@@ -1,18 +1,23 @@
 services:
     PouyaSoft\SDateBundle\Service\jDateService:
-        arguments: ["@request_stack"]
+        arguments: [ '@request_stack' ]
         public: true
 
     PouyaSoft\SDateBundle\Twig\PouyaSoftDateExtension:
         tags: ['twig.extension']
-        arguments: [ "@pouya_soft.j_sdate_service" ]
+        arguments: [ '@PouyaSoft\SDateBundle\Service\jDateService' ]
         public: true
 
     PouyaSoft\SDateBundle\Form\Type\PouyaSoftSDateType:
         tags: ['form.type']
-        arguments: [ "@pouya_soft.j_sdate_service", "@request_stack" ]
+        arguments: [ '@PouyaSoft\SDateBundle\Service\jDateService', '@request_stack' ]
         public: true
 
     PouyaSoft\SDateBundle\Form\Type\PouyaSoftPersianSDateType:
         tags: ['form.type']
+        public: true
+
+
+    pouya_soft.j_sdate_service:
+        alias: PouyaSoft\SDateBundle\Service\jDateService
         public: true

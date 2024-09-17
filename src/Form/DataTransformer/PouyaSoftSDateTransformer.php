@@ -8,24 +8,12 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
 class PouyaSoftSDateTransformer implements DataTransformerInterface
 {
-    /** @var jDateService */
     private $jDateService;
-
-    /** @var string */
     private $serverFormat;
-
-    /** @var string */
     private $locale;
-
-    /** @var string */
     private $calendar;
 
-    /**
-     * @param jDateService $jDateService
-     * @param string $serverFormat
-     * @param string $locale
-     */
-    public function __construct(jDateService $jDateService, $serverFormat, $locale)
+    public function __construct(jDateService $jDateService, string $serverFormat, string $locale)
     {
         $this->jDateService = $jDateService;
         $this->serverFormat = $serverFormat;
@@ -33,11 +21,7 @@ class PouyaSoftSDateTransformer implements DataTransformerInterface
         $this->calendar = $locale == 'fa' ? 'persian' : 'gregorian';
     }
 
-    /**
-     * @param \DateTime $gDate
-     * @return string
-     */
-    public function transform($gDate)
+    public function transform(\DateTime $gDate)
     {
         if($gDate === null) {
             return null;
@@ -56,11 +40,7 @@ class PouyaSoftSDateTransformer implements DataTransformerInterface
         return $result;
     }
 
-    /**
-     * @param string $jDate
-     * @return \DateTime
-     */
-    public function reverseTransform($jDate)
+    public function reverseTransform(string $jDate): ?\DateTime
     {
         if($jDate === null || $jDate === '') {
             return null;

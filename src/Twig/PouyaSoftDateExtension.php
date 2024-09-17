@@ -8,21 +8,20 @@ use Twig\TwigFilter;
 
 class PouyaSoftDateExtension extends AbstractExtension
 {
-    /** @var  jDateService */
     private $jDateService;
 
-    public function __construct($jDateService)
+    public function __construct(jDateService $jDateService)
     {
         $this->jDateService = $jDateService;
     }
 
     public function getFilters()
     {
-        return array(
+        return [
             new TwigFilter('gpDate', [$this, 'georgianToPersian']),
             new TwigFilter('pgDate', [$this, 'persianToGeorgian']),
             new TwigFilter('glDate', [$this, 'georgianToLocale']),
-        );
+        ];
     }
 
     /**
