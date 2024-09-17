@@ -1,14 +1,18 @@
 services:
     PouyaSoft\SDateBundle\Service\jDateService:
-        alias: 'pouya_soft.j_sdate_service'
         arguments: ["@request_stack"]
         public: true
 
+    pouya_soft.j_sdate_service:
+        alias: PouyaSoft\SDateBundle\Service\jDateService
+
     PouyaSoft\SDateBundle\Twig\PouyaSoftDateExtension:
-        alias: 'pouya_soft.sdate_extension'
         tags: ['twig.extension']
         arguments: [ "@pouya_soft.j_sdate_service" ]
         public: true
+
+    pouya_soft.sdate_extension:
+        alias: PouyaSoft\SDateBundle\Twig\PouyaSoftDateExtension
 
     PouyaSoft\SDateBundle\Form\Type\PouyaSoftSDateType:
         alias: 'jSDate'
