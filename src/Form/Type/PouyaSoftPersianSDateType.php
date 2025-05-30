@@ -9,14 +9,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PouyaSoftPersianSDateType extends AbstractType
 {
-    /**
-     * @param FormView $view
-     * @param FormInterface $form
-     * @param array<string, mixed> $options
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        // مقدار targetselector را همیشه override کن
         $options['pickerOptions']['targetselector'] = '#' . $view->vars['id'];
 
         $view->vars['attr'] = array_merge(
@@ -25,13 +19,7 @@ class PouyaSoftPersianSDateType extends AbstractType
         );
     }
 
-    /**
-     * تبدیل تنظیمات به attributes با پیشوند data-*
-     *
-     * @param array<string, mixed> $options
-     * @return array<string, string>
-     */
-    private function convertOptionsToDataAttributes(array $options): array
+    protected function convertOptionsToDataAttributes(array $options): array
     {
         $attributes = ['data-mddatetimepicker' => 'true'];
 
@@ -42,9 +30,6 @@ class PouyaSoftPersianSDateType extends AbstractType
         return $attributes;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $defaultPickerOptions = [
@@ -59,8 +44,8 @@ class PouyaSoftPersianSDateType extends AbstractType
             'disableBeforeToday' => false,
             'disabled' => false,
             'textFormat' => 'yyyy/MM/dd',
-            'isGregorian' => false,      // چون فارسی است
-            'englishNumber' => false,    // چون فارسی است
+            'isGregorian' => false,
+            'englishNumber' => false,
         ];
 
         $resolver->setDefaults([
