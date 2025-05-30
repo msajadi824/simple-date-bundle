@@ -30,8 +30,36 @@ class PouyaSoftSDateType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['pickerOptions'] = $options['pickerOptions'];
+        $defaults = [
+            'mddatetimepicker' => true,
+            'targetselector' => '#' . $view->vars['id'],
+            'placement' => 'bottom',
+            'trigger' => 'focus',
+            'enableTimePicker' => false,
+            'groupId' => '',
+            'fromDate' => false,
+            'toDate' => false,
+            'disableBeforeToday' => false,
+            'disabled' => false,
+            'textFormat' => 'yyyy/MM/dd',
+            'isGregorian' => $options['locale'] !== 'fa',
+            'englishNumber' => $options['locale'] !== 'fa',
+        ];
+
+        $pickerOptions = array_merge($defaults, $options['pickerOptions'] ?? []);
+
+        $view->vars['attr'] = array_merge($view->vars['attr'] ?? [], $this->convertOptionsToDataAttributes($pickerOptions));
         $view->vars['locale'] = $options['locale'];
+    }
+
+    private function convertOptionsToDataAttributes(array $options): array
+    {
+        $attributes = ['data-mddatetimepicker' => 'true'];
+
+        foreach ($options as $key => $value) 
+            $attributes['data-' . $key] = is_bool($value) ? ($value ? 'true' : 'false') : $value;
+        
+        return $attributes;
     }
 
     public function configureOptions(OptionsResolver $resolver)
