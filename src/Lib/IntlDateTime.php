@@ -8,7 +8,7 @@ class IntlDateTime extends \DateTime {
 
     protected $calendar;
 
-    public function __construct(\DateTime|string $time = null, \DateTimeZone $timezone = null, $calendar = 'gregorian', $locale = 'en_US', $pattern = null) {
+    public function __construct(\DateTime|string $dateTime, \DateTimeZone $timezone = null, $calendar = 'gregorian', $locale = 'en_US', $pattern = null) {
         if (!isset($timezone)) $timezone = new \DateTimeZone(date_default_timezone_get());
         elseif (!($timezone instanceof \DateTimeZone)) $timezone = new \DateTimeZone($timezone);
 
@@ -17,7 +17,7 @@ class IntlDateTime extends \DateTime {
         $this->setLocale($locale);
         $this->setCalendar($calendar);
 
-        if (isset($time)) $this->set($time, null, $pattern);
+        if (isset($dateTime)) $this->set($dateTime, null, $pattern);
     }
 
     protected function getFormatter($options = array()) {

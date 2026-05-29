@@ -32,7 +32,7 @@ class PouyaSoftDateExtension extends AbstractExtension
      * @param bool $latinizeDigit
      * @return string
      */
-    public function georgianToPersian($gDate = null, $format = 'yyyy/MM/dd', $locale = 'fa', $calendar = 'persian', $latinizeDigit = false)
+    public function georgianToPersian($gDate, $format = 'yyyy/MM/dd', $locale = 'fa', $calendar = 'persian', $latinizeDigit = false)
     {
         return $this->jDateService->georgianToPersian($gDate, $format, $locale, $calendar, $latinizeDigit);
     }
@@ -57,7 +57,7 @@ class PouyaSoftDateExtension extends AbstractExtension
      * @param bool $latinizeDigit
      * @return string
      */
-    public function georgianToLocale($gDate = null, $format = 'yyyy/MM/dd', $locale = null, $calendar = null, $latinizeDigit = false)
+    public function georgianToLocale($gDate, $format = 'yyyy/MM/dd', $locale = null, $calendar = null, $latinizeDigit = false)
     {
         return $this->jDateService->georgianToLocale($gDate, $format, $locale, $calendar, $latinizeDigit);
     }

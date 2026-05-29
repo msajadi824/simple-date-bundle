@@ -34,7 +34,7 @@ class jDateService
      * @param bool $latinizeDigit
      * @return string
      */
-    public static function georgianToPersian($georgian = null, $format = 'yyyy/MM/dd', $locale = 'fa', $calendar = 'persian', $latinizeDigit = false)
+    public static function georgianToPersian($georgian, $format = 'yyyy/MM/dd', $locale = 'fa', $calendar = 'persian', $latinizeDigit = false)
     {
         return $georgian ? jDateService::intlDateTimeInstance($georgian, null, $calendar, $locale, null)->intlFormat($format, null, $latinizeDigit) : '--';
     }
@@ -49,7 +49,7 @@ class jDateService
      * @param string $pattern the date pattern in which $time is formatted.
      * @return IntlDateTime
      */
-    public static function intlDateTimeInstance($time = null, $timezone = null, $calendar = 'persian', $locale = 'fa', $pattern = null)
+    public static function intlDateTimeInstance($time, $timezone = null, $calendar = 'persian', $locale = 'fa', $pattern = null)
     {
         return new IntlDateTime($time, $timezone, $calendar, $locale, $pattern);
     }
@@ -62,7 +62,7 @@ class jDateService
      * @param bool $latinizeDigit
      * @return string
      */
-    public function georgianToLocale($georgian = null, $format = 'yyyy/MM/dd', $locale = null, $calendar = null, $latinizeDigit = false)
+    public function georgianToLocale($georgian, $format = 'yyyy/MM/dd', $locale = null, $calendar = null, $latinizeDigit = false)
     {
         if(!$locale)
             $locale = $this->requestStack->getCurrentRequest()->getLocale();
