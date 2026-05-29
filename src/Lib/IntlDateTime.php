@@ -349,28 +349,4 @@ class IntlDateTime extends \DateTime {
 
 		return $latinizeDigits ? $this->latinizeDigits($result) : $result;
 	}
-
-	/**
-	 * Preserve original DateTime::format functionality
-	 *
-	 * @param string $format Format accepted by date().
-	 * @param mixed $timezone DateTimeZone object or timezone identifier as full name (e.g. Asia/Tehran) or abbreviation (e.g. IRDT).
-	 * @return string Formatted date on success or FALSE on failure.
-	 */
-	public function format($format, $timezone = null) {
-        $tempTimezone = null;
-
-        if (isset($timezone)) {
-			$tempTimezone = $this->getTimezone();
-			$this->setTimezone($timezone);
-		}
-
-		$result = parent::format($format);
-
-		if (isset($timezone)) {
-			$this->setTimezone($tempTimezone);
-		}
-
-		return $result;
-	}
 }
