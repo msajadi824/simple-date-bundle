@@ -12,13 +12,6 @@ class IntlDateTime extends \DateTime {
 		if (!isset($timezone)) $timezone = new \DateTimeZone(date_default_timezone_get());
 		elseif (!($timezone instanceof \DateTimeZone)) $timezone = new \DateTimeZone($timezone);
 
-<<<<<<< HEAD
-		if ($time instanceof \DateTime) {
-			$time = $time->format('Y-m-d H:i:s');
-		}
-
-=======
->>>>>>> 173a4d82144566e5c5ac690d53ebf5fdf21aff52
 		parent::__construct($time === null ? 'now' : $time, $timezone);
 
 		$this->setLocale($locale);
