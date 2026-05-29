@@ -12,7 +12,7 @@ class IntlDateTime extends \DateTime {
         if (!isset($timezone)) $timezone = new \DateTimeZone(date_default_timezone_get());
         elseif (!($timezone instanceof \DateTimeZone)) $timezone = new \DateTimeZone($timezone);
 
-        parent::__construct(null, $timezone);
+        parent::__construct('now', $timezone);
 
         $this->setLocale($locale);
         $this->setCalendar($calendar);
