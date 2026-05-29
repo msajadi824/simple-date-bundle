@@ -101,7 +101,7 @@ class IntlDateTime extends \DateTime {
 	}
 
 	public function getTimestamp() {
-		return (int) parent::format('U');
+		return floatval(parent::format('U'));
 	}
 
 	public function setTimestamp($unixtimestamp) {
@@ -181,27 +181,32 @@ class IntlDateTime extends \DateTime {
 		$change = strtolower($matches[2]);
 		$unit = strtolower($matches[3]);
 
-		if ($change === 'next') {
-			$change = 1;
-		} elseif ($change === 'last' || $change === 'previous') {
-			$change = -1;
-		} else {
-			$change = (int)$change;
+		switch ($change) {
+			case "next":
+				$change = 1;
+				break;
+
+			case "last":
+			case "previous":
+				$change = -1;
+				break;
 		}
 
-		if ($unit === 'month') {
-			$m += $change;
-			if ($m > 12) {
-				$y += floor($m/12);
-				$m = $m % 12;
-			} elseif ($m < 1) {
-				$y += ceil($m/12) - 1;
-				$m = $m % 12 + 12;
-			}
-		}
+		switch ($unit) {
+			case "month":
+				$m += $change;
+				if ($m > 12) {
+					$y += floor($m/12);
+					$m = $m % 12;
+				} elseif ($m < 1) {
+					$y += ceil($m/12) - 1;
+					$m = $m % 12 + 12;
+				}
+				break;
 
-		if ($unit === 'year') {
-			$y += $change;
+			case "year":
+				$y += $change;
+				break;
 		}
 
 		$this->setDate($y, $m, $d);
