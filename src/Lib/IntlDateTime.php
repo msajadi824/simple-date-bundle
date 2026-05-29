@@ -12,11 +12,7 @@ class IntlDateTime extends \DateTime {
 		if (!isset($timezone)) $timezone = new \DateTimeZone(date_default_timezone_get());
 		elseif (!($timezone instanceof \DateTimeZone)) $timezone = new \DateTimeZone($timezone);
 
-		if ($time instanceof \DateTime) {
-			$time = $time->format('Y-m-d H:i:s');
-		}
-
-		parent::__construct($time === null ? 'now' : $time, $timezone);
+		parent::__construct(null, $timezone);
 
 		$this->setLocale($locale);
 		$this->setCalendar($calendar);
@@ -68,9 +64,9 @@ class IntlDateTime extends \DateTime {
 				$pattern = strlen($match[1]) == 2 ? 'yy' : 'yyyy';
 				$pattern .= $separator . 'MM' . $separator . 'dd';
 			} else {
-				$separator = isset($match[4]) ? $match[4] : '/';
+				$separator = $match[4];
 				$pattern = 'dd' . $separator . 'LLL' . $separator;
-				$pattern .= strlen($match[5] ?? '') == 2 ? 'yy' : 'yyyy';
+				$pattern .= strlen($match[5]) == 2 ? 'yy' : 'yyyy';
 				if (!empty($match[3])) $pattern = (preg_match('/,\s+$/', $match[3]) ? 'E, ' : 'E ') . $pattern;
 			}
 
@@ -128,7 +124,7 @@ class IntlDateTime extends \DateTime {
 			}
 
 			if (!$pattern && preg_match('/((?:[+-]?\d+)|next|last|previous)\s*(year|month)s?/i', $time)) {
-				$tempTimezone = null;
+                $tempTimezone = null;
 
 				if (isset($timezone)) {
 					$tempTimezone = $this->getTimezone();
@@ -151,7 +147,7 @@ class IntlDateTime extends \DateTime {
 			date_default_timezone_set($timezone);
 
 			if ($pattern) {
-				$time = $this->getFormatter(array('timezone' => 'GMT', 'pattern' => $pattern))->format($time);
+				$time = $this->getFormatter(array('timezone' => 'GMT', 'pattern' => $pattern))->parse($time);
 				$time -= date('Z', $time);
 			} else {
 				$time = strtotime($time);
@@ -160,7 +156,7 @@ class IntlDateTime extends \DateTime {
 			date_default_timezone_set($defaultTimezone);
 		}
 
-		$this->setTimestamp((int)$time);
+		$this->setTimestamp($time);
 
 		return $this;
 	}
@@ -221,19 +217,21 @@ class IntlDateTime extends \DateTime {
 	}
 
 	public function intlFormat($pattern, $timezone = null, $latinizeDigits = false) {
-		$tempTimezone = null;
+        $tempTimezone = null;
 
-		if ($timezone !== null) {
+        if (isset($timezone)) {
 			$tempTimezone = $this->getTimezone();
 			$this->setTimezone($timezone);
 		}
 
+		// Timezones DST data in ICU are not as accurate as PHP.
+		// So we get timezone offset from php and pass it to ICU.
 		$result = $this->getFormatter(array(
-			'timezone' => 'GMT' . parent::format('P'),
+			'timezone' => 'GMT' . (parent::format('Z') ? parent::format('P') : ''),
 			'pattern' => $pattern
 		))->format($this->getTimestamp());
 
-		if ($timezone !== null) {
+		if (isset($timezone)) {
 			$this->setTimezone($tempTimezone);
 		}
 
